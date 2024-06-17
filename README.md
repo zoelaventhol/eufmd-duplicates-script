@@ -22,7 +22,7 @@ Testing setup and data are provided in the `init_db.sql` file. To test this scri
 - Run the commands in the `init_db.sql` file. This should create a table identical to the `db_manager.countries` table, and fill it with 20 rows of text data, including 2 duplicated countries (Australia and Egypt).
 - Update the database connection information in the Python script:
 
-```
+```Python
 conn = mysql.connector.connect(
             host='localhost',
             user='your_user',
@@ -31,7 +31,14 @@ conn = mysql.connector.connect(
         )
 ```
 
-- Run the script (instructions below), and review to make sure the correct records were deleted, and the rest of the data remains.
+- Run the script (instructions below), and review to make sure the correct records were deleted, and the rest of the data remains. Here is an SQL command to list all duplicates:
+
+``` MySQL
+SELECT c1.*
+    FROM countries c1
+    JOIN countries c2 ON c1.iso3 = c2.iso3 AND c1.id <> c2.id
+    ORDER BY c1.iso3;
+```
 
 ## To run
 
