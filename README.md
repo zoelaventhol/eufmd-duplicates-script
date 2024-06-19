@@ -67,10 +67,10 @@ Once you're ready:
 
 ```Python
 conn = mysql.connector.connect(
-            host='host_info',
+            host='host_url',
             user='MySQL_username',
             password='MySQL_pw',
-            database='db_manager'
+            database='db_name'
         )
 ```
 
