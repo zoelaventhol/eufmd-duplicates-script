@@ -11,8 +11,8 @@ def remove_duplicates():
         # Connect to the database
         conn = mysql.connector.connect(
             host='localhost',
-            user='root',
-            password='root',
+            user='your_SQL_username',
+            password='your_SQL_password',
             database='eufmd_test'
         )
         cursor = conn.cursor()
@@ -29,6 +29,9 @@ def remove_duplicates():
         GROUP BY iso3;
         """)
 
+        # Temporarily disable foreign key checks
+        cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
+        
         # Delete all records from the original table
         cursor.execute("DELETE FROM countries;")
 
@@ -40,6 +43,9 @@ def remove_duplicates():
         eufmd_mn, eufmd_na, eufmd_me, eufmd_seen, eufmd_nc, eufmd_enc, lat, lon
         FROM countries_temp;
         """)
+
+        # Reinstate foreign key checks
+        cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
 
         # Commit the transaction
         conn.commit()
